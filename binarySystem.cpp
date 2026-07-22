@@ -1,183 +1,318 @@
 #include <iostream>
-int decimal_to_binary(int n);
-int binary_to_decimal(int n);
-int binarySum(int a, int b, int carry);   // addition b/w binary numbers
-bool isBinary(long int n);      // check is a number is binary or not
-bool isOdd_binary(long int n);  // check Is a binary num is odd or even. also for decimal
-int long long numIn_memory(int n);  // convert num(s) in formate as store in memory.
+using namespace std;
+
+string decimal_to_binary(int decimal);
+int binary_to_decimal(const string binary);
+bool isBinary(const string binary);     // check Is a string is binary or not
+bool isOdd_binary(const string binary); // check Is a binary num is odd or even
+string insideMemory(const int decimal); // convert number(either +ve or -ve) in formate as store in memory.
+string oneCompliment(string binary);    // calculate 1's compliment for -ve number.
+string twoCompliment(string binary);    // calculate 2's compliment for -ve number.
 
 // ----------------------------
 int main()
 {
-    int n;
-    std::cout << "Enter number : ";
-    std::cin >> n;
-    std::cout << numIn_memory(n) << std::endl;
+    int decimal;
+    string binary;
+    cout << "Enter Decimal no : ";
+    cin >> decimal;
+
+    if (decimal >= 0)
+    {
+        binary = decimal_to_binary(decimal);
+        cout << "-> Number is Positive\n";
+        cout << "-> Binary : " << binary << endl;
+        cout << "-> Number in memory : " << insideMemory(decimal) << endl;
+        if (isOdd_binary(binary))
+        {
+            cout << "-> Number is Odd \n";
+        }
+        else
+        {
+            cout << "-> Number is Even \n";
+        }
+    }
+    else
+    {
+        binary = decimal_to_binary(decimal * (-1));
+        cout << "-> Number is Negative\n";
+        cout << "-> Binary of magnitude : " << binary << endl;
+        cout << "-> 1's compliment : " << "1" + oneCompliment(binary) << endl;
+        cout << "-> Number in memory (2's compliment) : " << insideMemory(decimal) << endl;
+        if (isOdd_binary(binary))
+        {
+            cout << "-> Number is Odd \n";
+        }
+        else
+        {
+            cout << "-> Number is Even \n";
+        }
+    }
     return 0;
 }
 //-------------------------------
 
-bool isBinary(long int binary)
+bool isBinary(const string binary)
 {
-    int reminder = 0;
-    while (binary > 0)
+    int length = binary.size();
+    for (int i = 0; i < length; i++)
     {
-        reminder = binary % 10;
-        if (reminder != 1 && reminder != 0)
+        if (binary[i] != '0' && binary[i] != '1')
         {
             return false;
         }
-        binary /= 10;
     }
     return true;
 }
-int binarySum(int a, int b, int carry){
-    /*  0+0 = 0 | 0+1 = 1 | 1+0 = 1 | (1+1 = 0 & carry = 1)  */
-
-    if(a == 0 && b==0){ // end point
-        return carry;
-    }
-    int sum =0, ans =0;
-    int lsbA = a % 10;
-    int lsbB = b % 10;
-
-    if( carry == 0)
-    {
-        // carry independ
-        if(lsbA == 1 && lsbB == 1){
-            carry = 1;
-            ans = 0;
-        }
-        else{
-            carry = 0;
-            ans = lsbA + lsbB;
-        }
-    }
-    else{
-        // carry depended
-        if(lsbA == 1 && lsbB == 1){
-            carry = 1;
-            ans = 1;
-        }
-        else if(lsbA == 0 && lsbB == 0){
-            carry = 0;
-            ans = 1;
-        }
-        else{
-            carry = 1;
-            ans = 0;
-        }
-    }
-    sum  = (binarySum(a/10,b/10,carry)*10) + ans; // recursive condition
-    return sum; 
-}
-int decimal_to_binary(int decimal)
+bool isOdd_binary(const string binary)
 {
-    if( decimal < 0){
-        // for negative number
-        decimal = decimal * (-1);
+    if (!isBinary(binary))
+    {
+        cout << "Number is not binary! \n Error occure while checking odd or even" << endl;
+        exit(0);
     }
-    int long binary = 0;
-    int power = 1; // 1, 10, 100, 1000.....
+
+    int lsb = binary.size() - 1;
+    if (binary[lsb] == '1')
+    {
+        return true;
+    }
+    return false;
+}
+string decimal_to_binary(int decimal)
+{
+    if (decimal < 0)
+    {
+        cout << "Number is negative!\n";
+        exit(0);
+    }
+
+    string binary;
     int reminder = 0;
+    char bit;
     while (decimal > 0)
     {
         // logic
         reminder = decimal % 2;
-        binary = binary + (reminder * power);
+        if (reminder == 1)
+        {
+            bit = '1';
+        }
+        else
+        {
+            bit = '0';
+        }
+        binary = bit + binary;
         // updation
         decimal /= 2;
-        power *= 10;
+    }
+    if (!isBinary(binary))
+    {
+        cout << "Errer occure in decimal to binary conversion!\n";
+        exit(0);
     }
     return binary;
 }
-int binary_to_decimal(int binary)
+int binary_to_decimal(const string binary)
 {
-    if (isBinary(binary))
+    if (!isBinary(binary))
     {
-        int decimal = 0;
-        int power = 1; // 1, 2, 4, 8, 16.....
-        int reminder = 0;
-        while (binary > 0)
-        {
-            // logic
-            reminder = binary % 10;
-            decimal += (reminder * power);
-            // updation
-            binary /= 10;
-            power *= 2;
-        }
-        return decimal;
+        cout << "Number is not binary \nErrer occure in binary to decimal conversion!\n";
+        exit(0);
     }
-    else
+    int decimal = 0, reminder = 0;
+    int length = binary.size();
+    int power = 1; // 1, 2, 4, 8, 16.....
+
+    for (int i = length - 1; i >= 0; i--)
     {
-        std::cout << "Number is not binary\n";
-        return 0;
-    }
-}
-bool isOdd_binary(long int binary)
-{
-    if (isBinary(binary))
-    {   // check even odd for binary
-        int lsb = binary % 10;
-        if (lsb == 1)
+        // logic
+        if (binary[i] == '1')
         {
-            return true;
+            reminder = 1;
         }
         else
         {
-            return false;
+            reminder = 0;
         }
+        decimal += (reminder * power);
+
+        // updation
+        power *= 2;
     }
-    else
-    {   // check even odd for decimal
-        std::cout << "Number is Not Binary\n";
-        if (binary % 2 == 1)
+    return decimal;
+}
+string oneCompliment(string binary)
+{
+    int length = binary.size();
+    if (length > 32)
+    {
+        cout << "Length of Binary must be less then or equal to 32.\n";
+        exit(0);
+    }
+    for (int i = 0; i < length; i++)
+    {
+        if (binary[i] == '1')
         {
-            return true;
+            binary[i] = '0';
         }
         else
         {
-            return false;
+            binary[i] = '1';
         }
     }
+    return binary;
 }
-int long long numIn_memory(int num){
-    int long long result =0;
-    if(num >= 0){
-        /*
-            for positive number - It convert into binary and then store in memory.
-            I : change into binary
-            II : store in memory
-        */
-        result = decimal_to_binary(num);
+string twoCompliment(string binary)
+{
+    int length = binary.size();
+    if (length > 32)
+    {
+        cout << "Length of Binary must be less then or equal to 32.\n";
+        exit(0);
     }
-    else{
-        /*
-            for negative number - It first convert into 2's compliment and then sotre in memory.
-            I : change into binary.
-            II : add MSB = 0 before III or MSB = 1 after III.
-            III : 1's compliment of number.
-            IV : 2's compliment of number.
-            V : Store in memory.
-        */
-        int binary = decimal_to_binary(num);    // binary form of digit value
-        int power = 1;  // to add MSB
-        while(binary > 0){  // 1's compliment
-            int digit = binary % 10;
-            if(digit == 1){
-                digit = 0;
-            }
-            else{
-                digit = 1;
-            }
-            result += (digit*power);
-            binary /= 10;
-            power *= 10;
+    binary = oneCompliment(binary); // 1's compliment
+
+    char carry = '1', sum = '0';
+
+    for (int i = binary.size() - 1; i >= 0; i--)
+    {
+        char bit = binary[i];
+        if (bit == '1' && carry == '1')
+        {
+            sum = '0';
+            carry = '1';
         }
-        result += power; // now MSB = 1 added;
-        result = binarySum(result,1,0); // 2's compliment
+        else if (bit == '0' && carry == '0')
+        {
+            sum = '0';
+            carry = '0';
+        }
+        else
+        {
+            sum = '1';
+            carry = '0';
+        }
+        binary[i] = sum;
     }
-    return result;
+    return binary;
+}
+string insideMemory(const int decimal)
+{
+    string binary;
+    if (decimal < 0)
+    {
+        int temp = decimal * (-1);
+        binary = decimal_to_binary(temp);
+    }
+    else
+    {
+        binary = decimal_to_binary(decimal);
+    }
+
+    int length = binary.size();
+    string longBinary(32 - length, '0');
+    longBinary = longBinary + binary;
+
+    if (decimal < 0)
+    {
+        return twoCompliment(longBinary);
+    }
+    else
+    {
+        return longBinary;
+    }
 }
 
+// int binarySum(int a, int b, int carry)
+// {
+//     /*  0+0 = 0 | 0+1 = 1 | 1+0 = 1 | (1+1 = 0 & carry = 1)  */
+
+//     if (a == 0 && b == 0)
+//     { // end point
+//         return carry;
+//     }
+//     int sum = 0, ans = 0;
+//     int lsbA = a % 10;
+//     int lsbB = b % 10;
+
+//     if (carry == 0)
+//     {
+//         // carry independ
+//         if (lsbA == 1 && lsbB == 1)
+//         {
+//             carry = 1;
+//             ans = 0;
+//         }
+//         else
+//         {
+//             carry = 0;
+//             ans = lsbA + lsbB;
+//         }
+//     }
+//     else
+//     {
+//         // carry depended
+//         if (lsbA == 1 && lsbB == 1)
+//         {
+//             carry = 1;
+//             ans = 1;
+//         }
+//         else if (lsbA == 0 && lsbB == 0)
+//         {
+//             carry = 0;
+//             ans = 1;
+//         }
+//         else
+//         {
+//             carry = 1;
+//             ans = 0;
+//         }
+//     }
+//     sum = (binarySum(a / 10, b / 10, carry) * 10) + ans; // recursive condition
+//     return sum;
+// }
+// long long numIn_memory(int num)
+// {
+//     long long result = 0;
+//     if (num >= 0)
+//     {
+//         /*
+//             for positive number - It convert into binary and then store in memory.
+//             I : change into binary
+//             II : store in memory
+//         */
+//         result = decimal_to_binary(num);
+//     }
+//     else
+//     {
+//         /*
+//             for negative number - It first convert into 2's compliment and then sotre in memory.
+//             I : change into binary.
+//             II : add MSB = 0 before III or MSB = 1 after III.
+//             III : 1's compliment of number.
+//             IV : 2's compliment of number.
+//             V : Store in memory.
+//         */
+//         int binary = decimal_to_binary(num); // binary form of digit value
+//         int power = 1;                       // to add MSB
+//         while (binary > 0)
+//         { // 1's compliment
+//             int digit = binary % 10;
+//             if (digit == 1)
+//             {
+//                 digit = 0;
+//             }
+//             else
+//             {
+//                 digit = 1;
+//             }
+//             result += (digit * power);
+//             binary /= 10;
+//             power *= 10;
+//         }
+//         result += power;                  // now MSB = 1 added;
+//         result = binarySum(result, 1, 0); // 2's compliment
+//     }
+//     return result;
+// }
