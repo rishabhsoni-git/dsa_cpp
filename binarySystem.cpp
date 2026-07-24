@@ -8,6 +8,7 @@ bool isOdd_binary(const string binary); // check Is a binary num is odd or even
 string insideMemory(const int decimal); // convert number(either +ve or -ve) in formate as store in memory.
 string oneCompliment(string binary);    // calculate 1's compliment for -ve number.
 string twoCompliment(string binary);    // calculate 2's compliment for -ve number.
+string binarySum(string a, string b);
 
 // ----------------------------
 int main()
@@ -48,6 +49,12 @@ int main()
             cout << "-> Number is Even \n";
         }
     }
+
+    cout << "-- Addition --\nEnter two binary number : ";
+    string a,b;
+    cin >> a;
+    cin >> b;
+    cout << "Sum = " << binarySum(a,b) << endl;
     return 0;
 }
 //-------------------------------
@@ -223,96 +230,66 @@ string insideMemory(const int decimal)
         return longBinary;
     }
 }
-
-// int binarySum(int a, int b, int carry)
-// {
-//     /*  0+0 = 0 | 0+1 = 1 | 1+0 = 1 | (1+1 = 0 & carry = 1)  */
-
-//     if (a == 0 && b == 0)
-//     { // end point
-//         return carry;
-//     }
-//     int sum = 0, ans = 0;
-//     int lsbA = a % 10;
-//     int lsbB = b % 10;
-
-//     if (carry == 0)
-//     {
-//         // carry independ
-//         if (lsbA == 1 && lsbB == 1)
-//         {
-//             carry = 1;
-//             ans = 0;
-//         }
-//         else
-//         {
-//             carry = 0;
-//             ans = lsbA + lsbB;
-//         }
-//     }
-//     else
-//     {
-//         // carry depended
-//         if (lsbA == 1 && lsbB == 1)
-//         {
-//             carry = 1;
-//             ans = 1;
-//         }
-//         else if (lsbA == 0 && lsbB == 0)
-//         {
-//             carry = 0;
-//             ans = 1;
-//         }
-//         else
-//         {
-//             carry = 1;
-//             ans = 0;
-//         }
-//     }
-//     sum = (binarySum(a / 10, b / 10, carry) * 10) + ans; // recursive condition
-//     return sum;
-// }
-// long long numIn_memory(int num)
-// {
-//     long long result = 0;
-//     if (num >= 0)
-//     {
-//         /*
-//             for positive number - It convert into binary and then store in memory.
-//             I : change into binary
-//             II : store in memory
-//         */
-//         result = decimal_to_binary(num);
-//     }
-//     else
-//     {
-//         /*
-//             for negative number - It first convert into 2's compliment and then sotre in memory.
-//             I : change into binary.
-//             II : add MSB = 0 before III or MSB = 1 after III.
-//             III : 1's compliment of number.
-//             IV : 2's compliment of number.
-//             V : Store in memory.
-//         */
-//         int binary = decimal_to_binary(num); // binary form of digit value
-//         int power = 1;                       // to add MSB
-//         while (binary > 0)
-//         { // 1's compliment
-//             int digit = binary % 10;
-//             if (digit == 1)
-//             {
-//                 digit = 0;
-//             }
-//             else
-//             {
-//                 digit = 1;
-//             }
-//             result += (digit * power);
-//             binary /= 10;
-//             power *= 10;
-//         }
-//         result += power;                  // now MSB = 1 added;
-//         result = binarySum(result, 1, 0); // 2's compliment
-//     }
-//     return result;
-// }
+string binarySum(string a, string b)
+{
+    if(!isBinary(a) || !isBinary(b)){
+        cout << "Number must be binary for addition\n";
+        exit(0);
+    }
+    int lenA = a.size();
+    int lenB = b.size();
+if(lenA != lenB){
+    if(lenA == min(lenA,lenB)){
+        string prefix(lenB-lenA, '0');
+        a = prefix + a;
+        lenA = a.size();
+    }
+    else{
+        string prefix(lenA-lenB, '0');
+        b = prefix + b;
+        lenB = b.size();
+    }
+}
+    string result;
+    char carry = '0';
+    for (int i = lenA-1; i>=0; i--)
+    {
+        char sum;
+        if (carry == '0') // carry independ
+        {
+            if(a[i] == '1' && b[i]=='1')
+            {
+                carry = '1';
+                sum = '0';
+            }
+            else if(a[i] == '0' && b[i]=='0')
+            {
+                carry = '0';
+                sum = '0';
+            }
+            else{
+                carry = '0';
+                sum = '1';
+            }
+        }
+        else //carry depended
+        {
+            if(a[i] == '1' && b[i]=='1')
+            {
+                carry = '1';
+                sum = '1';
+            }
+            else if(a[i] == '0' && b[i]=='0')
+            {
+                carry = '0';
+                sum = '1';
+            }
+            else{
+                carry = '1';
+                sum = '0';
+            }
+        }
+        result = sum + result;
+    }
+    return carry + result;
+}
