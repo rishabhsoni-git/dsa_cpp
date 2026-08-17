@@ -6,16 +6,20 @@ int main(){
             int - integer(4 byte)
             float - decimal(4 byte)
             char - character(1 byte)
-            bool - boolean (1 bit - true/flase)
+            bool - boolean (1 bit - true/false)
             double - decimal(8 byte)
             long long - integer(8 byte)
             *std::string - string data type but actually it's a char-array.
+            
         Data type modifier : use to change properties of data type
             long - to store large value (4-byte or 8-byte)
             short - to store small value (2-byte)
             signed - to store +ve as well as -ve values (int : -2^31 to 2^31-1)
             unsigned - to store only +ve values (int : 0 to 2^32-1)
 
+        --- Char Data Type ---
+        character -> ASCII value -> Binary -> stored in memory
+        for example, 'A' -> 65 -> 01000001;
     */
 
     int short unsigned age = 21;
