@@ -57,9 +57,7 @@ Each topic is practiced through small C++ programs and examples. The focus is on
 
 This section is continuously updated as I learn and practice new concepts.
 
-> **Goal:** Build strong C++ fundamentals and use them as a foundation for solving DSA problems efficiently.
-
----
+* C++ fundamentls
 
 **Language:** C++
 **Focus:** Programming Fundamentals • STL • DSA Preparation
