@@ -7,6 +7,10 @@ int main()
     int n;
     cout << "\nEnter number of rows: ";
     cin >> n;
+    if (n < 1 || n > 26) {
+        cerr << "Choose a row count from 1 to 26 so the alphabet patterns stay in range.\n";
+        return 1;
+    }
 //----------------------------------
     /* n = 4
     1 2 3 4

@@ -1,3 +1,4 @@
+// Basic Structure of the program
 
 // This is single line comment
 /* 
@@ -6,19 +7,21 @@
     Comment
 */
 
+// Comments are ignored by the compiler and help explain the program to readers.
 #include <iostream>
+#include <string>
 /*
-    #       -> pre-processor directive, use to tell compiler to first perform this task before compilation.
-    include -> use to include or connect libraries to our program.
-    <...>   -> describe it is the inbuild library.
-    iostream -> standard library has function like cin, cout and many more.
+    #       -> starts a preprocessor directive handled before compilation.
+    include -> requests declarations from a header.
+    <...>   -> names a standard/system header.
+    iostream -> declares standard input/output stream facilities such as cin and cout.
 
 */
 using namespace std;
 /*
-    using   -> indicate we use this feature in our program
-    namespace -> a type of file which help to make easy to write code.
-    std     -> this is the file which required as prefix before using 'std' library function.
+    using   -> introduces a name or namespace into the current scope
+    namespace -> a named scope that groups related identifiers and avoids name collisions.
+    std     -> the namespace containing the C++ standard library names.
     
     Example - Take input using library function cin and print it on screen using cout
         ** Without "using namespace std;"
@@ -32,12 +35,13 @@ using namespace std;
 
 int main(){
     /* 
-        This is main function which directly call by processor.
-        Execution of program start from this function.
+        This is the program entry point called by the C++ runtime.
+        Execution of this program starts in main().
+        Program we need to execute is written in this block.
     */
 
 
-    // To put/print output at Standard Device - Screen use 'std::cout' global object
+    // std::cout is the standard output stream (made available here without the std:: prefix).
 
     cout << "Hello, World!"; //string
 
@@ -50,11 +54,12 @@ int main(){
 
     cout << 'A' << " String " << 3 << true << endl; // multi-type content.
 
-    // To taking input from Standard Device - Keyboard use 'std::cin' global object
+    // std::cin is the standard input stream.
 
-    //first create variable to put inputed value in it.
+    // Create a variable to store the input value.
     int num;
-    cin >> num; // You need to enter a number - no prompt arrear by default.
+    cout << "Enter a number: ";
+    cin >> num;
 
     string name;
     char grade;

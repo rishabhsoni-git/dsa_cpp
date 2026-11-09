@@ -1,0 +1,13 @@
+# Build output from the standalone examples
+*.out
+*.o
+*.exe
+/a.out
+
+# Obsolete folders that still contain separate, empty Git metadata locally.
+/Arrays/arr_basics/
+/STL_lib/
+
+# VS Code/editor and operating-system files
+.vscode/
+.DS_Store

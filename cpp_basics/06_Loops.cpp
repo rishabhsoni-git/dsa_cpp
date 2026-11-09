@@ -19,42 +19,45 @@ int main() {
     int num;
     std::cout << "\nEnter a number for prime checking: ";
     std::cin >> num;
-    bool isPrime = true;
-    for(int i = 2; i*i <= num; ++i) {
+    bool isPrime = num >= 2;
+    for(int i = 2; isPrime && i <= num / i; ++i) {
         if(num % i == 0) {
             isPrime = false;
             break;
         }
     }
-    if(isPrime && num >= 1) {
+    if(isPrime) {
         std::cout << num << " is a prime number\n";
     }
     else {
         std::cout << num << " is not a prime number\n";
     }
 
-    // while loop - calculate sum of numbers from 1 to 5
+    // while loop - calculate the sum of numbers from 1 to n
     std::cout << "\nEnter a number for sum calculation (1 to n): ";
     int n;
     std::cin >> n;
-    int sum = 0;
-    int j = 1;
+    long long sum = 0;
+    long long j = 1;
     while(j <= n) {
         sum += j;
         j++;
     }
     std::cout << "Sum: " << sum << "\n";
 
-    // do...while loop - calculate factorial of a number
-    int fact = 1;
+    // for loop - calculate factorial of a number (using a bounded range)
+    long long fact = 1;
     int k;
     std::cout << "\nEnter a number for factorial calculation: ";
     std::cin >> k;
-    do {
-        fact *= k;
-        k--;
-    } while(k > 0);
-    std::cout << "Factorial: " << fact << "\n";
+    if (k < 0 || k > 20) {
+        std::cout << "Factorial is demonstrated only for values from 0 to 20.\n";
+    } else {
+        for (int factor = 2; factor <= k; ++factor) {
+            fact *= factor;
+        }
+        std::cout << "Factorial: " << fact << "\n";
+    }
 
     // nested loops - print a multiplication table
     std::cout << "\nMultiplication Table:\n";
@@ -93,36 +96,56 @@ int main() {
     std::cout << "\n";
 
     // fibonacci series using loops
-    int secondlast = 0, last = 1, present, count;
+    long long secondlast = 0, last = 1, present;
+    int count;
     std::cout << "\nEnter the number of terms for Fibonacci series: ";
     std::cin >> count;
-    std::cout << "Fibonacci Series: " << secondlast << " " << last << " ";
+    std::cout << "\nFibonacci Series: ";
+    if (count < 0 || count > 93) {
+        std::cout << "Choose between 0 and 93 terms.\n";
+        count = 0;
+    }
+    if (count > 0) {
+        std::cout << secondlast;
+    }
+    if (count > 1) {
+        std::cout << " " << last;
+    }
     for(int i = 2; i < count; ++i) {
         present = secondlast + last;
-        std::cout << present << " ";
+        std::cout << " " << present;
         secondlast = last;
         last = present;
     }
     std::cout << "\n";
 
     // reverse a number using loops
-    int number, reversed = 0;
+    int number;
+    long long reversed = 0;
     std::cout << "\nEnter a number to reverse: ";
     std::cin >> number;
-    while(number != 0) {
-        int digit = number % 10;
+    const bool wasNegative = number < 0;
+    int remaining = number;
+    while(remaining != 0) {
+        int digit = remaining % 10;
         reversed = reversed * 10 + digit;
-        number /= 10;
+        remaining /= 10;
     }
-    std::cout << "Reversed Number: " << reversed << "\n";
+    std::cout << "Reversed Number: " << (wasNegative ? -reversed : reversed) << "\n";
 
     // sum of digits of a number using loops
-    int numToSum, sumOfDigits = 0;
+    int numToSum;
+    long long remainingDigits;
+    int sumOfDigits = 0;
     std::cout << "\nEnter a number to find the sum of its digits: ";
     std::cin >> numToSum;
-    while(numToSum != 0) {
-        sumOfDigits += numToSum % 10;
-        numToSum /= 10;
+    remainingDigits = numToSum;
+    if (remainingDigits < 0) {
+        remainingDigits = -remainingDigits;
+    }
+    while(remainingDigits != 0) {
+        sumOfDigits += static_cast<int>(remainingDigits % 10);
+        remainingDigits /= 10;
     }
     std::cout << "Sum of digits: " << sumOfDigits << "\n";
 

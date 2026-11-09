@@ -5,7 +5,7 @@
     Kind of Operators -
         1. Unary Operators (!, ++, --)
         2. Binary Operators (*, /, %, +, -)
-        3. Logical Operators (||, && , >>, << )
+        3. Logical Operators (||, &&)
         4. Bit-wise Operators (&, |, ^)
         5. Comperision Operators (<, <=, >, >=, ==, !=)
         6. Assignmen Operator (=).
@@ -31,7 +31,7 @@ int main(){
 
     std::cout << (true || false) << std::endl; // logical OR -> true
 
-    std::cout << (6 == 9) << std::endl; // compression op -> false = 0
+    std::cout << (6 == 9) << std::endl; // comparison operator -> false = 0
 
     std::cout << (6 < 9) << std::endl; // -> true = 1
 
@@ -41,9 +41,9 @@ int main(){
 
     std::cout << (13 & 7) << std::endl; // -> (1101 & 0111 = 0101) = 5  bitwise AND
 
-    std::cout << (13 | 7) << std::endl; // -> (1101 & 0111 = 1111) = 15  bitwise OR
+    std::cout << (13 | 7) << std::endl; // -> (1101 | 0111 = 1111) = 15  bitwise OR
 
-    std::cout << (13 ^ 7) << std::endl; // -> (1101 & 0111 = 1010) = 10  bitwise XOR
+    std::cout << (13 ^ 7) << std::endl; // -> (1101 ^ 0111 = 1010) = 10  bitwise XOR
 
     std::cout << (5 << 3) << std::endl; // -> (5*2*2*2) = 40  bitwise left shift op
 

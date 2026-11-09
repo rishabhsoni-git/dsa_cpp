@@ -8,6 +8,7 @@
 */
 
 #include <iostream>
+#include <string>
 using namespace std;
 int main() {
     char ch1;
@@ -52,7 +53,9 @@ int main() {
     int marks;
     std::cout << "\nEnter your marks for grade checking: ";
     std::cin >> marks;
-    switch(marks / 10) {
+    if (marks < 0 || marks > 100) {
+        std::cout << "Marks must be between 0 and 100.\n";
+    } else switch(marks / 10) {
         case 10:
         case 9:
             std::cout << "Grade: A\n";

@@ -1,15 +1,18 @@
 #include <iostream>
 int main(){
     /* 
-        Variable : Memory blocks to store data.
-        Data Type : Type of data which store.
-            int - integer(4 byte)
-            float - decimal(4 byte)
-            char - character(1 byte)
-            bool - boolean (1 bit - true/false)
-            double - decimal(8 byte)
-            long long - integer(8 byte)
-            *std::string - string data type but actually it's a char-array.
+        Variable : variables are Memory blocks to store data.
+
+        Data Type : It is the Type of data who store in variable.
+
+        Common Data types in C++ are - 
+            int - integer (size is implementation-dependent; commonly 4 bytes)
+            float - floating-point type (commonly 4 bytes)
+            char - character type (exactly 1 byte)
+            bool - boolean type (sizeof(bool) is commonly 1 byte)
+            double - floating-point type (commonly 8 bytes)
+            long long - integer type (at least 64 bits)
+            std::string - string data type but actually it's a char-array.
             
         Data type modifier : use to change properties of data type
             long - to store large value (4-byte or 8-byte)
@@ -18,11 +21,11 @@ int main(){
             unsigned - to store only +ve values (int : 0 to 2^32-1)
 
         --- Char Data Type ---
-        character -> ASCII value -> Binary -> stored in memory
-        for example, 'A' -> 65 -> 01000001;
+        character -> execution-character-set value -> stored representation
+        On ASCII-compatible systems, for example, 'A' has value 65.
     */
 
-    int short unsigned age = 21;
+    unsigned short age = 21;
     std::cout << "Size of age variable is " << sizeof(age) << std::endl;
 
     char opcode = '+';
@@ -34,11 +37,11 @@ int main(){
     bool sign = true;
     std::cout << "Is your number is positive : " << sign << std::endl;
 
-    long long thirteenDigit = 1000000000000;
+    long long thirteenDigit = 1000000000000LL;
     std::cout << thirteenDigit << std::endl;
 
-    unsigned int num = -10;
-    std::cout << "Assigning -10 value to unsigned int 'num'.\nNow check its value in memory, num = " << num << std::endl;
+    unsigned int num = -10; // Unsigned arithmetic wraps modulo 2^N; it does not store a negative value.
+    std::cout << "Converting -10 to unsigned gives " << num << " on this platform.\n";
 
     std::cout << "int size = " << sizeof(int) << std::endl;
     std::cout << "long size = " << sizeof(long) << std::endl;

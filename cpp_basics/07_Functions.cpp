@@ -21,14 +21,14 @@
 using namespace std;
 
 // Function Declaration
-bool isPositive(int n);
-int min(int a, int b);
-int max(int a, int b);
-int sumToN(int n);              // calculate sum of numbers from 1 to n.
-long long factorial(int n);     // calculate n factorial.
+bool isNonNegative(int n);
+int minimum(int a, int b);
+int maximum(int a, int b);
+long long sumToN(int n);        // calculate sum of numbers from 1 to n.
+long long factorial(int n);     // calculate n factorial for n in [0, 20].
 int sumDigits(int n);           // calculate sum of all digits in a number.
 int magicNum(int n);            // calculate sum of digits till only single digit number appear.
-int nCr(int n, int r);          // claculate Binomial cofficient for n and r
+long long nCr(int n, int r);    // calculate the binomial coefficient for n and r
 void binomialcoffs(int n);      // Print Binomial cofficient for n and for all (r<n).
 
 // ********************************************************************
@@ -39,26 +39,26 @@ int main() {
     // Function calls
     std::cout << "NOTE: Wrong input will return 0 or -1 for some functions.\n";
 
-    std::cout << "Enter a number to check if it's positive: ";
+    std::cout << "Enter a number to check if it's non-negative: ";
     int num;
     std::cin >> num;
-    if (isPositive(num)) {
-        std::cout << num << " is positive.\n";
+    if (isNonNegative(num)) {
+        std::cout << num << " is non-negative.\n";
     } else {
-        std::cout << num << " is not positive.\n";
+        std::cout << num << " is negative.\n";
     }
 
     std::cout << "\nEnter two numbers to find the minimum and maximum: ";
     int a, b;
     std::cin >> a >> b;
-    std::cout << "Minimum: " << min(a, b) << "\n";
-    std::cout << "Maximum: " << max(a, b) << "\n";
+    std::cout << "Minimum: " << minimum(a, b) << "\n";
+    std::cout << "Maximum: " << maximum(a, b) << "\n";
 
     std::cout << "\nEnter a number to calculate the sum of numbers from 1 to n: ";
     std::cin >> num;
     std::cout << "Sum from 1 to " << num << ": " << sumToN(num) << "\n";
 
-    std::cout << "\nEnter a number to calculate its factorial: ";
+    std::cout << "\nEnter a number (0-20) to calculate its factorial: ";
     std::cin >> num;
     std::cout << "Factorial of " << num << ": " << factorial(num) << "\n";
 
@@ -86,14 +86,11 @@ int main() {
 
 // Function Definitions
 
-bool isPositive(int n) {
-    if (n >= 0) {
-        return true;
-    }
-    return false;
+bool isNonNegative(int n) {
+    return n >= 0;
 }
 
-int min(int x, int y) {
+int minimum(int x, int y) {
     if (x < y) {
         return x;
     } else {
@@ -101,7 +98,7 @@ int min(int x, int y) {
     }
 }
 
-int max(int x, int y) {
+int maximum(int x, int y) {
     if (x > y) {
         return x;
     } else {
@@ -110,56 +107,70 @@ int max(int x, int y) {
 }
 
 long long factorial(int n) {
-    if (isPositive(n)) {
-        long long fact = 1;
-        for (int i = 0; i < n; i++) {
-            fact *= (i + 1);
-        }
-        return fact;
+    if (n < 0 || n > 20) {
+        return 0;
     }
-    return 0;
+    long long fact = 1;
+    for (int i = 2; i <= n; ++i) {
+        fact *= i;
+    }
+    return fact;
 }
 
-int sumToN(int n) {
-    if (isPositive(n)) {
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += (i + 1);
-        }
-        return sum;
+long long sumToN(int n) {
+    if (n < 0) {
+        return 0;
     }
-    return 0;
+    return static_cast<long long>(n) * (n + 1LL) / 2;
 }
 
 int sumDigits(int n) {
-    int sum = 0, r = 0;
-    while (n > 0) {
-        r = n % 10;
-        sum += r;
-        n /= 10;
+    long long value = n;
+    if (value < 0) {
+        value = -value;
     }
-    return sum;
+    int total = 0;
+    while (value > 0) {
+        total += static_cast<int>(value % 10);
+        value /= 10;
+    }
+    return total;
 }
 
 int magicNum(int n) {
-    while (n >= 10) {
-        n = sumDigits(n);   // magic() function call sumDigits() function which will return sum of digits to magic() function. 
+    long long value = n;
+    if (value < 0) {
+        value = -value;
     }
-    return n;
+    while (value >= 10) {
+        int digitSum = 0;
+        while (value > 0) {
+            digitSum += static_cast<int>(value % 10);
+            value /= 10;
+        }
+        value = digitSum;
+    }
+    return static_cast<int>(value);
 }
 
-int nCr(int n, int r) {
-    if (isPositive(n) && isPositive(r) && r <= n) {
-        return factorial(n) / (factorial(r) * factorial(n - r));
+long long nCr(int n, int r) {
+    if (n < 0 || n > 20 || r < 0 || r > n) {
+        return -1;
     }
-    return -1;  // return -1 if n or r is negative or r > n
+    r = (r < n - r) ? r : n - r;
+    long long result = 1;
+    for (int i = 1; i <= r; ++i) {
+        result = result * (n - r + i) / i;
+    }
+    return result;
 }
 
 void binomialcoffs(int n) {
-    if (isPositive(n)) {
-        for (int r = 0; r <= n; r++) {
-            printf("nCr(%d, %d) = %d\n", n, r, nCr(n, r));  // calling nCr() function to calculate Binomial cofficient for n and r.
-        }
+    if (n < 0 || n > 20) {
+        std::cout << "n must be between 0 and 20.\n";
+        return;
     }
-    return;  // return -1 if n is negative
+    for (int r = 0; r <= n; ++r) {
+        std::cout << "nCr(" << n << ", " << r << ") = " << nCr(n, r) << '\n';
+    }
 }

@@ -1,63 +1,33 @@
 # C++ Basics
 
-This directory contains my C++ fundamentals and core concepts that form the foundation for learning **Data Structures and Algorithms (DSA)**.
+Standalone programs for learning C++ before applying it to data structures and
+algorithms. Every numbered source file has its own `main()` and can be compiled
+independently with C++17 or later.
 
-The purpose of this section is to strengthen my understanding of C++ syntax, programming concepts, and the Standard Template Library (STL) before applying them to DSA problems.
+## Lessons
 
-## 📚 Topics Covered
+| File | Topic |
+| --- | --- |
+| `01_Basic_Structure.cpp` | Program structure, comments, and `main` |
+| `02_Input_Output.cpp` | Console input and output streams |
+| `03_Variables_DataTypes.cpp` | Variables, data types, and `sizeof` |
+| `04_Operators.cpp` | Arithmetic, logical, comparison, and bitwise operators |
+| `05_Conditional_statements.cpp` | `if`, `switch`, and conditional expressions |
+| `06_Loops.cpp` | Iteration, loop control, and number examples |
+| `07_Functions.cpp` | Declarations, definitions, parameters, and return values |
+| `08_Patterns.cpp` | Nested-loop pattern exercises |
+| `09_Arrays.cpp` | Fixed-size arrays and passing arrays to functions |
+| `10_Strings.cpp` | `std::string`, `getline`, and searching |
+| `11_Pointers.cpp` | Addresses, dereferencing, and `nullptr` |
+| `12_References.cpp` | Aliases and reference parameters |
+| `13_Structures.cpp` | User-defined types with `struct` |
 
-### 1. C++ Fundamentals
+Compile a lesson from the repository root, for example:
 
-* Input and Output
-* Variables and Data Types
-* Operators
-* Conditional Statements
-* Loops
-* Functions
+```sh
+g++ -std=c++17 -Wall -Wextra -pedantic cpp_basics/10_Strings.cpp -o strings
+./strings
+```
 
-### 2. Core Programming Concepts - Ongoing
-
-* Arrays
-* Strings
-* Pointers
-* References
-* Structures
-
-### 3. Standard Template Library (STL) - Upcoming
-
-* `vector`
-* `string`
-* `pair`
-* `stack`
-* `queue`
-* `deque`
-* `set`
-* `map`
-* `unordered_set`
-* `unordered_map`
-* `priority_queue`
-
-## 🎯 Purpose
-
-The main goal of this section is to build a strong programming foundation and become comfortable with the C++ features commonly used in competitive programming and DSA.
-
-These concepts will be used throughout the rest of this repository while solving problems and implementing different data structures and algorithms.
-
-## 🚀 Learning Approach
-
-Each topic is practiced through small C++ programs and examples. The focus is on:
-
-* Understanding concepts rather than memorizing syntax
-* Writing clean and readable C++ code
-* Practicing frequently used STL components
-* Building a foundation for DSA and competitive programming
-* Gradually improving problem-solving skills
-
-## 📈 Progress
-
-This section is continuously updated as I learn and practice new concepts.
-
-* C++ fundamentls
-
-**Language:** C++
-**Focus:** Programming Fundamentals • STL • DSA Preparation
+Programs that read from standard input prompt for the required values. The code
+comments explain concepts and note assumptions where they matter.

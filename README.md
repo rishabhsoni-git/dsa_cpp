@@ -26,6 +26,37 @@ The goal is not just to solve problems, but to understand **how and why** differ
 * **Practice:** LeetCode and other coding platforms
 * **Focus:** DSA, Problem Solving & Competitive Programming
 
+## 🗂️ Repository Structure
+
+```text
+dsa_cpp/
+├── README.md
+├── cpp_basics/                 # C++ syntax and core language concepts
+├── stl/                        # Standard Template Library examples
+├── data_structures/
+│   └── arrays/
+│       ├── basics/              # Traversal, insertion, deletion, search
+│       └── problems/            # Array problem-solving patterns
+└── algorithms/
+        └── bit_manipulation/        # Binary representation and operations
+```
+
+Each `.cpp` file is a standalone learning example with its own `main()` function.
+Compile one file at a time; the examples are not intended to be linked into one
+executable.
+
+### Build an example
+
+Requires a C++17 compiler such as GCC or Clang:
+
+```sh
+g++ -std=c++17 -Wall -Wextra -pedantic cpp_basics/02_Input_Output.cpp -o input_output
+./input_output
+```
+
+Replace the source path and output name to run a different example. Programs that
+request input will prompt in the terminal.
+
 ---
 
 ## 📚 Learning Roadmap
@@ -33,7 +64,9 @@ The goal is not just to solve problems, but to understand **how and why** differ
 | Topic               | Status         |
 | ------------------- | -------------- |
 | C++ Basics          | 🔄 In Progress |
+| STL                 | 🔄 In Progress |
 | Arrays              | 🔄 In Progress |
+| Bit Manipulation    | 🔄 In Progress |
 | Strings             | ⏳ Upcoming     |
 | Linked Lists        | ⏳ Upcoming     |
 | Stack               | ⏳ Upcoming     |
@@ -99,6 +132,14 @@ Optimize if Possible
 > **Learn → Practice → Analyze → Improve → Repeat**
 
 Every problem is an opportunity to understand a new concept, recognize a pattern, or improve an existing approach.
+
+## 📌 Conventions
+
+* Keep each example self-contained and compile it independently.
+* Prefer descriptive `snake_case` filenames and `const` for read-only inputs.
+* Document important assumptions and time/space complexity near each algorithm.
+* Put reusable topic examples under the corresponding topic directory; platform
+        submissions can be grouped by platform under `problem_solutions/` as they are added.
 
 ---
 
